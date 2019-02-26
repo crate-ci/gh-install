@@ -23,6 +23,6 @@ steps:
       cargo -V
   displayName: Query rust and cargo versions
 - ${{ if ne(parameters.rustup_target, '') }}:
-- script: |
+  - script: |
       rustup target add ${{ parameters.rustup_target }}
-  displayName: Install support for ${{ parameters.rustup_target }}
+    displayName: Install support for ${{ parameters.rustup_target }}
