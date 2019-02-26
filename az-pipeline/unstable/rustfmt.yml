@@ -6,7 +6,7 @@ jobs:
   pool:
     vmImage: ubuntu-16.04
   steps:
-    - template: az-pipeline/unstable/rustup.yml
+    - template: /az-pipeline/unstable/rustup.yml
       parameters:
         rustup_toolchain: ${{ parameters.rustup_toolchain }}
         components:
