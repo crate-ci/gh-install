@@ -1,0 +1,15 @@
+parameters:
+  rustup_toolchain: 'stable'
+- job: check_warnings
+  displayName: Check warnings
+  pool:
+    vmImage: ubuntu-16.04
+  steps:
+    - template: az-pipeline/unstable/rustup.yml
+      parameters:
+        rustup_toolchain: ${{ parameters.rustup_toolchain }}
+    - script: |
+        cargo check --tests
+      env:
+        RUSTFLAGS: "-D warnings"
+      displayName: Run check
