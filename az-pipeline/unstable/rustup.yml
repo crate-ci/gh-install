@@ -27,7 +27,7 @@ steps:
   - script: |
       rustup target add ${{ parameters.rustup_target }}
     displayName: Install support for ${{ parameters.rustup_target }}
-- ${{ each component in parameters.components }}
+- ${{ each component in parameters.components }}:
   - script: |
       rustup component add ${{ component }}
     displayName: Install ${{ component }}
