@@ -1,6 +1,7 @@
 parameters:
   rustup_toolchain: 'stable'
   rustup_target: ''
+  components: []
 
 steps:
 - ${{ if ne(Agent.OS, 'Windows_NT') }}:
@@ -26,3 +27,7 @@ steps:
   - script: |
       rustup target add ${{ parameters.rustup_target }}
     displayName: Install support for ${{ parameters.rustup_target }}
+- ${{ each component in parameters.components }}
+  - script: |
+      rustup component add ${{ component }}
+    displayName: Install ${{ component }}
