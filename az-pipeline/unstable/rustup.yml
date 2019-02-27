@@ -4,13 +4,13 @@ parameters:
   components: []
 
 steps:
-- ${{ if ne(Agent.OS, 'Windows_NT') }}:
+- ${{ if ne(variables.Agent.OS, 'Windows_NT') }}:
   # Linux and macOS.
   - script: |
       curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain ${{ parameters.rustup_toolchain }}
       echo "##vso[task.setvariable variable=PATH;]$PATH:$HOME/.cargo/bin"
     displayName: Install rust
-- ${{ if eq(Agent.OS, 'Windows_NT') }}:
+- ${{ if eq(variables.Agent.OS, 'Windows_NT') }}:
   # Windows.
   - script: |
       curl -sSf -o rustup-init.exe https://win.rustup.rs
