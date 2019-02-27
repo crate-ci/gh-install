@@ -1,16 +1,20 @@
 variables:
   check_toolchain: 1.31.0  # `stable`: Locking down for consistent behavior
   minimum_supported_version: 1.22.0
+  working_dir: ./test
 jobs:
 - template: /az-pipeline/unstable/rustfmt.yml
   parameters:
-    rustup_toolchain: $(check_toolchain)
+    rustup_toolchain: ${{ variables.check_toolchain }}
+    working_directory: ${{ variables.working_dir }}
 - template: /az-pipeline/unstable/clippy.yml
   parameters:
-    rustup_toolchain: $(check_toolchain)
+    rustup_toolchain: ${{ variables.check_toolchain }}
+    working_directory: ${{ variables.working_dir }}
 - template: /az-pipeline/unstable/warnings.yml
   parameters:
-    rustup_toolchain: $(check_toolchain)
+    rustup_toolchain: ${{ variables.check_toolchain }}
+    working_directory: ${{ variables.working_dir }}
 - job: Windows
   pool:
     vmImage: vs2017-win2016
@@ -23,19 +27,17 @@ jobs:
       nightly:
         rustup_toolchain: nightly
       minimum_supported_version:
-        rustup_toolchain: $(minimum_supported_version)
+        rustup_toolchain: ${{ variables.minimum_supported_version }}
   steps:
     - template: /az-pipeline/unstable/rustup.yml
       parameters:
         rustup_toolchain: $(rustup_toolchain)
     - script: cargo check --verbose
+      workingDirectory: ${{ variables.working_dir }}
       displayName: Compile
     - script: cargo test --verbose
+      workingDirectory: ${{ variables.working_dir }}
       displayName: Test
-    - script: set
-      displayName: Dump (baseline)
-    - script: cargo run --verbose
-      displayName: Dump
 - job: macOS
   pool:
     vmImage: macOS-10.13
@@ -48,19 +50,17 @@ jobs:
       nightly:
         rustup_toolchain: nightly
       minimum_supported_version:
-        rustup_toolchain: $(minimum_supported_version)
+        rustup_toolchain: ${{ variables.minimum_supported_version }}
   steps:
     - template: /az-pipeline/unstable/rustup.yml
       parameters:
         rustup_toolchain: $(rustup_toolchain)
     - script: cargo check --verbose
+      workingDirectory: ${{ variables.working_dir }}
       displayName: Compile
     - script: cargo test --verbose
+      workingDirectory: ${{ variables.working_dir }}
       displayName: Test
-    - script: printenv
-      displayName: Dump (baseline)
-    - script: cargo run --verbose
-      displayName: Dump
 - job: Linux
   pool:
     vmImage: ubuntu-16.04
@@ -73,16 +73,14 @@ jobs:
       nightly:
         rustup_toolchain: nightly
       minimum_supported_version:
-        rustup_toolchain: $(minimum_supported_version)
+        rustup_toolchain: ${{ variables.minimum_supported_version }}
   steps:
     - template: /az-pipeline/unstable/rustup.yml
       parameters:
         rustup_toolchain: $(rustup_toolchain)
     - script: cargo check --verbose
+      workingDirectory: ${{ variables.working_dir }}
       displayName: Compile
     - script: cargo test --verbose
+      workingDirectory: ${{ variables.working_dir }}
       displayName: Test
-    - script: printenv
-      displayName: Dump (baseline)
-    - script: cargo run --verbose
-      displayName: Dump

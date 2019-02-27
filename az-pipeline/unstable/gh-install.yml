@@ -9,23 +9,23 @@ parameters:
   to: ''
 
 steps:
-- ${{ if ne(Agent.OS, 'Windows_NT') }}:
   # Linux and macOS.
-  - script: |
-      curl -sSf https://raw.githubusercontent.com/crate-ci/resources/master/gh-install/unstable/install.sh |
-        sh -s --
-        --git ${{ parameters.git }}
-        --crate ${{ parameters.crate }}
-        --target ${{ parameters.target }}
-        --to ${{ parameters.to }}
-    displayName: Install ${{ parameters.git }}
-- ${{ if eq(Agent.OS, 'Windows_NT') }}:
-  # Windows.
-  - script: |
-      curl -sSf -o gh-install.ps1 https://raw.githubusercontent.com/crate-ci/resources/master/gh-install/unstable/install.ps1 |
-        gh-install.ps1
-        --git ${{ parameters.git }}
-        --crate ${{ parameters.crate }}
-        --target ${{ parameters.target }}
-        --to ${{ parameters.to }}
-    displayName: Install ${{ parameters.git }}
+- script: |
+    curl -sSf https://raw.githubusercontent.com/crate-ci/resources/master/gh-install/unstable/install.sh |
+      sh -s --
+      --git ${{ parameters.git }}
+      --crate ${{ parameters.crate }}
+      --target ${{ parameters.target }}
+      --to ${{ parameters.to }}
+  displayName: Install ${{ parameters.git }}
+  condition: ne( variables['Agent.OS'], 'Windows_NT' )
+# Windows.
+- script: |
+    curl -sSf -o gh-install.ps1 https://raw.githubusercontent.com/crate-ci/resources/master/gh-install/unstable/install.ps1 |
+      gh-install.ps1
+      --git ${{ parameters.git }}
+      --crate ${{ parameters.crate }}
+      --target ${{ parameters.target }}
+      --to ${{ parameters.to }}
+  condition: eq( variables['Agent.OS'], 'Windows_NT' )
+  displayName: Install ${{ parameters.git }}

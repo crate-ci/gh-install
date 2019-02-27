@@ -1,8 +1,8 @@
 parameters:
   rustup_toolchain: 'stable'
+  working_directory: './'
 jobs:
-- job: check_warnings
-  displayName: Check warnings
+- job: warnings
   pool:
     vmImage: ubuntu-16.04
   steps:
@@ -11,6 +11,7 @@ jobs:
         rustup_toolchain: ${{ parameters.rustup_toolchain }}
     - script: |
         cargo check --tests
+      workingDirectory: ${{ parameters.working_directory }}
       env:
         RUSTFLAGS: "-D warnings"
       displayName: Run check
