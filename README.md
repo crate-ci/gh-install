@@ -1,5 +1,7 @@
 > crate-ci Resources
 
+[![Build Status](https://dev.azure.com/crate-ci/resources/_apis/build/status/crate-ci.resources?branchName=master)](https://dev.azure.com/crate-ci/resources/_build/latest?definitionId=1&branchName=master)
+
 Scripts and other tools to use within your CI.
 
 ## License
