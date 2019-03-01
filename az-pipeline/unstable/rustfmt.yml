@@ -1,8 +1,8 @@
 parameters:
   rustup_toolchain: 'stable'
+  working_directory: './'
 jobs:
-- job: check_formatting
-  displayName: Check formatting
+- job: rustfmt
   pool:
     vmImage: ubuntu-16.04
   steps:
@@ -13,4 +13,5 @@ jobs:
           - rustfmt
     - script: |
         cargo fmt -- --check
+      workingDirectory: ${{ parameters.working_directory }}
       displayName: Run rustfmt

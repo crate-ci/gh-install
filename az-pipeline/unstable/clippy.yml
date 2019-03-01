@@ -1,8 +1,8 @@
 parameters:
   rustup_toolchain: 'stable'
+  working_directory: './'
 jobs:
-- job: check_lints
-  displayName: Check lints
+- job: clippy
   pool:
     vmImage: ubuntu-16.04
   steps:
@@ -13,4 +13,5 @@ jobs:
           - clippy
     - script: |
         cargo clippy
+      workingDirectory: ${{ parameters.working_directory }}
       displayName: Run clippy
