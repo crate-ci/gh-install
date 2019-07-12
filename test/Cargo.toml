@@ -1,7 +1,0 @@
-[package]
-name = "test_ci"
-version = "0.1.0"
-authors = ["Ed Page <eopage@gmail.com>"]
-edition = "2018"
-
-[dependencies]
