@@ -20,7 +20,7 @@ function say_err($msg) {
 
 function err($msg) {
     if($td -ne "") {
-        Remove-Item -path $td recurse
+        Remove-Item -path $td -recurse
     }
 
     say_err($msg)
@@ -84,4 +84,4 @@ $exes = Get-ChildItem $td -Filter *.exe
 foreach ($f in $exes) {
 }
 
-Remove-Item -path $td recurse
+Remove-Item -path $td -recurse
