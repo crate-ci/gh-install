@@ -73,7 +73,6 @@ New-Item -ItemType directory -Path $dest -Force
 
 $tarball = "$crate-$tag-$target.zip"
 $download_url="$releases_url/download/$tag/$tarball"
-say_err "$download_url"
 say_err "Downloading: $download_url"
 
 $td = NewTemporaryDirectory
