@@ -59,7 +59,7 @@ if ($tag -eq "") {
 
 if ($target -eq "") {
     $rustc = rustc -Vv | Out-String
-    if ($rustc -match "host: (.*)") {
+    if ($rustc -match "host: ([^ \r\n]*)") {
         $target = $matches[1]
     } else {
         err("Could not extract target from '$rustc'")
