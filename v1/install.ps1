@@ -77,7 +77,7 @@ say_err "Downloading: $download_url"
 
 $td = NewTemporaryDirectory
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Invoke-WebRequest -Uri $download_url -OutFile $td
+Invoke-WebRequest -Uri $download_url -OutFile "$td\$tarball"
 Expand-Archive "$td\$tarball"  -DestinationPath $td
 
 $exes = Get-ChildItem $td -Filter *.exe
