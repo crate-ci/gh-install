@@ -82,6 +82,13 @@ Expand-Archive "$td\$tarball"  -DestinationPath $td
 
 $exes = Get-ChildItem $td -Filter *.exe
 foreach ($f in $exes) {
+    $path = (Join-Path $dest $f)
+    if ((Test-Path $path) -and !$force) {
+        err "$f already exists in $dest"
+    } else {
+        New-Item -ItemType directory -Path $dest -Force
+        Copy-Item (Join-Path $td $f) -Destination $dest
+    }
 }
 
 Remove-Item -path $td -recurse
