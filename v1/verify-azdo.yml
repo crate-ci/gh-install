@@ -1,16 +1,3 @@
-trigger:
-  branches:
-    include: ['master']
-  paths:
-    include:
-    - "/v1/*.yml"
-pr:
-  branches:
-    include:
-    - master
-  paths:
-    include:
-    - "/v1/*.yml"
 schedules:
 - cron: "7 7 7 * *"
   displayName: Monthly Build
