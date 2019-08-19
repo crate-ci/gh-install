@@ -12,7 +12,7 @@ pr:
     include:
     - "/v1/*.yml"
 schedules:
-- cron: "3 3 3 * *"
+- cron: "7 7 7 * *"
   displayName: Monthly Build
   branches:
     include:
