@@ -6,10 +6,48 @@ schedules:
     - master
 
 stages:
- - stage: dummy
+ - stage: ghinstall
+   displayName: gh-install
    jobs:
-   - job: dummy
+   - job: ghinstall
+     strategy:
+       matrix:
+         windows:
+           imageName: 'vs2017-win2016'
+         mac:
+           imageName: 'macos-10.14'
+         linux:
+           imageName: 'ubuntu-16.04'
+     pool:
+       vmImage: $(imageName)
+     steps:
+     - template: azure/install-rust.yml@templates
+     - template: /v1/azdo-step.yml
+       parameters:
+         git: crate-ci/committed
+         to: $(Build.StagingDirectory)/tools
+     - script: $(Build.StagingDirectory)/tools/committed --help
+       displayName: Verify
+ - stage: committed
+   displayName: Lint History
+   jobs:
+   - job: "Committed"
      pool:
        vmImage: 'ubuntu-16.04'
      steps:
      - checkout: self
+     - template: azure/install-rust.yml@templates
+     - template: /v1/azdo-step.yml
+       parameters:
+         git: crate-ci/committed
+         to: $(Build.StagingDirectory)/tools
+     - script: $(Build.StagingDirectory)/tools/committed HEAD~..HEAD^2 --no-merge-commit -vv
+       displayName: Committed
+     condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: crate-ci/azure-pipelines
+      endpoint: crate-ci

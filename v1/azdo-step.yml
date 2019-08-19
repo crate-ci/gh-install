@@ -16,6 +16,7 @@ steps:
   displayName: Install ${{ parameters.git }} (posix)
 # Windows.
 - script: |
-    curl -sSf -o gh-install.ps1 https://raw.githubusercontent.com/crate-ci/resources/master/gh-install/unstable/install.ps1 | gh-install.ps1 --git "${{ parameters.git }}" --crate "${{ parameters.crate }}" --target "${{ parameters.target }}" --to "${{ parameters.to }}"
+    curl -sSf -o gh-install.ps1 https://raw.githubusercontent.com/crate-ci/resources/master/gh-install/unstable/install.ps1
+    gh-install.ps1 --git "${{ parameters.git }}" --crate "${{ parameters.crate }}" --target "${{ parameters.target }}" --to "${{ parameters.to }}"
   condition: eq( variables['Agent.OS'], 'Windows_NT' )
   displayName: Install ${{ parameters.git }} (Windows)
