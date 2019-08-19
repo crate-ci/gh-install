@@ -45,8 +45,9 @@ say_err "Crate: $crate"
 $releases_url = "$repo_url/releases"
 
 if ($tag -eq "") {
+    say_err "Finding tag from $releases_url/latest"
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    $latest_page = Invoke-WebRequest -Uri "$releases_url/latest" -MaximumRedirection 0 | Select-Object -ExpandProperty Content
+    $latest_page = Invoke-WebRequest -Uri "$releases_url/latest" -MaximumRedirection 90 | Select-Object -ExpandProperty Content
     if ($latest_page -match "$releases_url/tag/(v[0-9.]*)") {
         $tag = $matches[1]
     } else {
