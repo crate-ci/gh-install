@@ -3,14 +3,14 @@ trigger:
     include: ['master']
   paths:
     include:
-    - "v1/*.yml"
+    - "/v1/*.yml"
 pr:
   branches:
     include:
     - master
   paths:
     include:
-    - "v1/*.yml"
+    - "/v1/*.yml"
 schedules:
 - cron: "3 3 3 * *"
   displayName: Monthly Build
