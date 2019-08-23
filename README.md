@@ -8,13 +8,29 @@ Download the script for your platform:
 - [bash](v1/install.sh)
 - [powershell](v1/install.ps1)
 
-and run it
-
-```bash
-$ ./install.sh --git <org>/<repo>
+And run it:
 ```
+$ ./install.sh --git <org>/<repo>
+# Or
+PS install.ps1 -git <org>/<repo>
+```
+and the binary will be installed to `$HOME/.cargo/bin` unless `--path` is specified
 
-or use the Azure Pipeline template ([example](v1/azure-pipelines.yml)).
+Or use the [Azure Pipeline template](v1/azdo-step.yml) ([example](v1/azure-pipelines.yml)).
+
+## Creating compatible artifacts
+
+The filename must be of the form `<crate>-<tag>-<target>.<format>`
+- `<crate>`: If it does not match `<repo>`, users will need to pass in the `--crate <crate>` flag
+- `<tag>`: Must be the tag the artifact is associated with. `install.*` can
+  automatically use the latest tag if it starts with a `v` and looks like a
+  version.
+- `<target>`: The [target triplet](https://wiki.osdev.org/Target_Triplet). If rust is installed, it will be inferred from that.
+- `<format>`: Must be `zip` for Windows and `tar.gz` for Linux/Mac.
+
+All binaries in the root of the artifact will be copied to the `--path`.
+
+For an Azure Pipelines example, see [`committed`](https://github.com/crate-ci/committed/blob/master/azure-pipelines.yml).
 
 ## License
 
