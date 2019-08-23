@@ -65,3 +65,20 @@ stages:
         to: $(Build.StagingDirectory)/tools
     - script: $(Build.StagingDirectory)/tools/committed --help
       displayName: Verify
+- stage: committed
+  displayName: Lint History
+  dependsOn: ["template"]
+  jobs:
+  - job: "Committed"
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - checkout: self
+    - template: /v1/azdo-step.yml
+      parameters:
+        git: crate-ci/committed
+        target: 'x86_64-unknown-linux-gnu'
+        to: $(Build.StagingDirectory)/tools
+    - script: $(Build.StagingDirectory)/tools/committed HEAD~..HEAD^2 --no-merge-commit -vv
+      displayName: Committed
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
