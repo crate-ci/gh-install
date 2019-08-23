@@ -39,3 +39,46 @@ stages:
       displayName: Install ${{ variables.git }} (Windows)
     - script: $(Build.StagingDirectory)/tools/committed --help
       displayName: Verify
+- stage: template
+  displayName: Validate Template
+  dependsOn: []
+  jobs:
+  - job: ghinstall
+    strategy:
+      matrix:
+        windows:
+          imageName: 'vs2017-win2016'
+          target: 'x86_64-pc-windows-msvc'
+        mac:
+          imageName: 'macos-10.14'
+          target: 'x86_64-apple-darwin'
+        linux:
+          imageName: 'ubuntu-16.04'
+          target: 'x86_64-unknown-linux-gnu'
+    pool:
+      vmImage: $(imageName)
+    steps:
+    - template: /v1/azdo-step.yml
+      parameters:
+        git: crate-ci/committed
+        target: $(target)
+        to: $(Build.StagingDirectory)/tools
+    - script: $(Build.StagingDirectory)/tools/committed --help
+      displayName: Verify
+- stage: committed
+  displayName: Lint History
+  dependsOn: ["template"]
+  jobs:
+  - job: "Committed"
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - checkout: self
+    - template: /v1/azdo-step.yml
+      parameters:
+        git: crate-ci/committed
+        target: 'x86_64-unknown-linux-gnu'
+        to: $(Build.StagingDirectory)/tools
+    - script: $(Build.StagingDirectory)/tools/committed HEAD~..HEAD^2 --no-merge-commit -vv
+      displayName: Committed
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
