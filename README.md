@@ -2,7 +2,9 @@
 
 [![Build Status](https://dev.azure.com/crate-ci/crate-ci/_apis/build/status/gh-install%20v1?branchName=master)](https://dev.azure.com/crate-ci/crate-ci/_build/latest?definitionId=8&branchName=master)
 
-## Usage
+## Getting Started
+
+# Usage
 
 Download the script for your platform:
 - [bash](v1/install.sh)
@@ -18,7 +20,7 @@ and the binary will be installed to `$HOME/.cargo/bin` unless `--path` is specif
 
 Or use the [Azure Pipeline template](v1/azdo-step.yml) ([example](v1/azure-pipelines.yml)).
 
-## Creating compatible artifacts
+# Creating compatible artifacts
 
 The filename must be of the form `<crate>-<tag>-<target>.<format>`
 - `<crate>`: If it does not match `<repo>`, users will need to pass in the `--crate <crate>` flag
@@ -41,9 +43,11 @@ Licensed under either of
 
 at your option.
 
-### Contribution
+## Contribution
 
 Unless you explicitly state otherwise, any contribution intentionally
 submitted for inclusion in the work by you, as defined in the Apache-2.0
 license, shall be dual licensed as above, without any additional terms or
 conditions.
+
+Thanks for [japaric/trust](https://github.com/japaric/trust) for the original `install.sh`.
