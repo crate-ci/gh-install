@@ -2,6 +2,20 @@
 
 [![Build Status](https://dev.azure.com/crate-ci/crate-ci/_apis/build/status/gh-install%20v1?branchName=master)](https://dev.azure.com/crate-ci/crate-ci/_build/latest?definitionId=8&branchName=master)
 
+## Usage
+
+Download the script for your platform:
+- [bash](v1/install.sh)
+- [powershell](v1/install.ps1)
+
+and run it
+
+```bash
+$ ./install.sh --git <org>/<repo>
+```
+
+or use the Azure Pipeline template ([example](v1/azure-pipelines.yml)).
+
 ## License
 
 Licensed under either of
