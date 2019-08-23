@@ -7,16 +7,19 @@ parameters:
   target: ''
   # Optional: default installs to `~/.cargo/bin`
   to: ''
+variables:
+  posix_url: https://raw.githubusercontent.com/crate-ci/gh-install/master/v1/install.sh
+  windows_url: https://raw.githubusercontent.com/crate-ci/gh-install/master/v1/install.ps1
 
 steps:
   # Linux and macOS.
 - script: |
-    curl -sSf https://raw.githubusercontent.com/crate-ci/gh-install/master/v1/install.sh | sh -s -- --git "${{ parameters.git }}" --crate "${{ parameters.crate }}" --target "${{ parameters.target }}" --to "${{ parameters.to }}"
+    curl -sSf $(posix_url) | sh -s -- --git "${{ parameters.git }}" --crate "${{ parameters.crate }}" --target "${{ parameters.target }}" --to "${{ parameters.to }}"
   condition: ne( variables['Agent.OS'], 'Windows_NT' )
   displayName: Install ${{ parameters.git }} (posix)
 # Windows.
 - powershell: |
-    curl.exe -sSf -o $(Build.StagingDirectory)/gh-install.ps1 https://raw.githubusercontent.com/crate-ci/gh-install/master/v1/install.ps1
+    curl.exe -sSf -o $(Build.StagingDirectory)/gh-install.ps1 $(windows_url)
     $(Build.StagingDirectory)/gh-install.ps1 -git "${{ parameters.git }}" -crate "${{ parameters.crate }}" -target "${{ parameters.target }}" -to "${{ parameters.to }}"
   condition: eq( variables['Agent.OS'], 'Windows_NT' )
   displayName: Install ${{ parameters.git }} (Windows)
