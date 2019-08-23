@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-# Usage
+### Usage
 
 Download the script for your platform:
 - [bash](v1/install.sh)
@@ -20,7 +20,7 @@ and the binary will be installed to `$HOME/.cargo/bin` unless `--path` is specif
 
 Or use the [Azure Pipeline template](v1/azdo-step.yml) ([example](v1/azure-pipelines.yml)).
 
-# Creating compatible artifacts
+### Creating compatible artifacts
 
 The filename must be of the form `<crate>-<tag>-<target>.<format>`
 - `<crate>`: If it does not match `<repo>`, users will need to pass in the `--crate <crate>` flag
