@@ -142,6 +142,7 @@ curl -sL "$url" | tar xz -f - -C "$td"
 
 for f in "$td"/*; do
     test -x "$f" || continue
+    test -f "$f" || continue
 
     if [ -e "$dest/$(basename f)" ] && [ $force = false ]; then
         err "$f already exists in $dest"
