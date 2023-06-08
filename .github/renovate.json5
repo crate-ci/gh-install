@@ -1,0 +1,8 @@
+{
+  schedule: [
+    'before 3am on the first day of the month',
+  ],
+  semanticCommits: 'enabled',
+  configMigration: true,
+  dependencyDashboard: true,
+}
