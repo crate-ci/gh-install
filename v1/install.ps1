@@ -88,7 +88,7 @@ foreach ($f in $exes) {
         err "$f already exists in $dest"
     } else {
         New-Item -ItemType directory -Path $dest -Force
-        Copy-Item (Join-Path $td $f) -Destination $dest
+        Copy-Item $f -Destination $dest
     }
 }
 
