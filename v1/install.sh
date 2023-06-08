@@ -119,10 +119,11 @@ say_err "Crate: $crate"
 url="$url/releases"
 
 if [ -z "$tag" ]; then
-    tag_url=$url/latest
-    tag=$(curl -s "$tag_url" | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)
+    latest_url=$url/latest
+    tag_url=$(curl -Ls -o /dev/null -w "%{url_effective}" "$latest_url")
+    tag=$(echo "$tag_url" | rev | cut -d'/' -f1 | rev)
     if [ -z "$tag" ]; then
-        err "Failed to get tag from $tag_url"
+        err "Failed to get tag from $latest_url"
     fi
     say_err "Tag: latest ($tag)"
 else
