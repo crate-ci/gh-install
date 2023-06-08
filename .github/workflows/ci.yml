@@ -1,0 +1,45 @@
+name: pre-commit
+
+permissions: {} # none
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+env:
+  CARGO_TERM_COLOR: always
+  GIT: crate-ci/committed
+  CRATE: committed
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        build: [linux, macos, win-msvc]
+        include:
+        - build: linux
+          os: ubuntu-latest
+          rust: stable
+          target: x86_64-unknown-linux-musl
+        - build: macos
+          os: macos-latest
+          rust: stable
+          target: x86_64-apple-darwin
+        - build: win-msvc
+          os: windows-latest
+          rust: stable
+          target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Install (posix)
+      run: |
+        sh v1/install.sh -- --git $GIT --crate $CRATE --target ${{ matrix.target }} --to .
+      if: "matrix.os != 'windows-latest'"
+    - name: Install (Windows)
+      run: |
+        v1/install.ps1 -git $GIT -crate $CRATE -target ${{ matrix.target }} -to .
+      if: "matrix.os == 'windows-latest'"
+    - name: Verify
+      run: committed --help
