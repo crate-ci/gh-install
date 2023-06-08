@@ -93,3 +93,5 @@ foreach ($f in $exes) {
 }
 
 Remove-Item -path $td -recurse
+
+Get-ChildItem $dest
