@@ -102,6 +102,8 @@ if [ -z "$target" ]; then
 fi
 
 if [ -z "$git" ]; then
+    # Markdown-style backticks
+    # shellcheck disable=SC2016
     err 'must specify a git repository using `--git`. Example: `install.sh --git japaric/cross`'
 fi
 
