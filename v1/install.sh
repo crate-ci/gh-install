@@ -150,7 +150,7 @@ for f in "$td"/*; do
     test -x "$f" || continue
     test -f "$f" || continue
 
-    if [ -e "$dest/$(basename f)" ] && [ $force = false ]; then
+    if [ -e "$dest/$(basename "$f")" ] && [ "$force" = false ]; then
         err "$f already exists in $dest"
     else
         mkdir -p "$dest"
