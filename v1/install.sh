@@ -102,6 +102,8 @@ if [ -z "$target" ]; then
 fi
 
 if [ -z "$git" ]; then
+    # Markdown-style backticks
+    # shellcheck disable=SC2016
     err 'must specify a git repository using `--git`. Example: `install.sh --git japaric/cross`'
 fi
 
@@ -117,7 +119,11 @@ say_err "Crate: $crate"
 url="$url/releases"
 
 if [ -z "$tag" ]; then
-    tag=$(curl -s "$url/latest" | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)
+    tag_url=$url/latest
+    tag=$(curl -s "$tag_url" | cut -d'"' -f2 | rev | cut -d'/' -f1 | rev)
+    if [ -z "$tag" ]; then
+        err "Failed to get tag from $tag_url"
+    fi
     say_err "Tag: latest ($tag)"
 else
     say_err "Tag: $tag"

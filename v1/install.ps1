@@ -53,7 +53,7 @@ if ($tag -eq "") {
     } else {
         err("Could not extract tag from '$latest_page'")
     }
-    say_err "Tag: latest $tag"
+    say_err "Tag: latest ($tag)"
 } else {
     say_err "Tag: $tag"
 }
@@ -88,8 +88,10 @@ foreach ($f in $exes) {
         err "$f already exists in $dest"
     } else {
         New-Item -ItemType directory -Path $dest -Force
-        Copy-Item (Join-Path $td $f) -Destination $dest
+        Copy-Item $f -Destination $dest
     }
 }
 
 Remove-Item -path $td -recurse
+
+Get-ChildItem $dest
