@@ -51,3 +51,10 @@ jobs:
       if: "matrix.os == 'windows-latest'"
     - name: Verify
       run: ./${{ matrix.bin }} --help
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Run ShellCheck
+        uses: azohra/shell-linter@latest
