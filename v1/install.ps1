@@ -53,7 +53,7 @@ if ($tag -eq "") {
     } else {
         err("Could not extract tag from '$latest_page'")
     }
-    say_err "Tag: latest $tag"
+    say_err "Tag: latest ($tag)"
 } else {
     say_err "Tag: $tag"
 }
