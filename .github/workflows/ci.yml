@@ -50,4 +50,4 @@ jobs:
         v1/install.ps1 -git ${{ matrix.git }} -tag ${{ matrix.tag }} -crate ${{ matrix.bin }} -target ${{ matrix.target }} -to .
       if: "matrix.os == 'windows-latest'"
     - name: Verify
-      run: ${{ matrix.bin }} --help
+      run: ./${{ matrix.bin }} --help
