@@ -37,7 +37,7 @@ jobs:
           bin: committed
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install (posix)
       run: |
         sh v1/install.sh -- --git ${{ matrix.git }} --crate ${{ matrix.bin }} --target ${{ matrix.target }} --to .
@@ -52,6 +52,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Run ShellCheck
         uses: azohra/shell-linter@latest
