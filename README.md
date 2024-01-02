@@ -1,8 +1,8 @@
 # gh-install
 
-[![Build Status](https://dev.azure.com/crate-ci/crate-ci/_apis/build/status/gh-install%20v1?branchName=master)](https://dev.azure.com/crate-ci/crate-ci/_build/latest?definitionId=8&branchName=master)
+> Install pre-built binaries from GitHub.
 
-Install pre-built binaries from GitHub.
+[![Build Status](https://dev.azure.com/crate-ci/crate-ci/_apis/build/status/gh-install%20v1?branchName=master)](https://dev.azure.com/crate-ci/crate-ci/_build/latest?definitionId=8&branchName=master)
 
 ## Getting Started
 
