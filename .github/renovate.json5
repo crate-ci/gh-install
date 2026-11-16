@@ -5,5 +5,7 @@
   semanticCommits: 'enabled',
   commitMessageLowerCase: 'never',
   configMigration: true,
-  dependencyDashboard: true,
+  dependencyDashboard: {
+    enabled: true,
+  },
 }
